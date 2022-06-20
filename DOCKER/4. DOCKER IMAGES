@@ -1,0 +1,84 @@
+4. DOCKER IMAGES:
+====================
+.  A Docker image is a read-only template that contains a set of instructions for creating a container that can run on the Docker Platform.
+
+# docker run hello-world
+
+Docker image is made up of a collection of files that bundle together all the essentials, such as installations, 
+  application code and dependencies, required to configure a fully operational container environment.
+- we can create an image in two way.
+
+manual Method:
+--------------
+ By running a container from an existing Docker image manually changing that container environment through a 
+ series of live steps and saving the resulting state as a new image.
+Automated Method: 
+------------------
+ By constructing a plain-text file known as a Dockerfile, which provides the specifications for creating a Docker Image.
+
+4.1.To login to docker hub or any other registry
+-------------------------------------------------
+
+# docker login
+
+
+4.2. To seach images 
+-----------------------
+# docker search <image name>
+# docker search httpd
+
+4.3 Downloading Docker Images:
+------------------------------
+To pull images (if you dont specify the version it will pull image with latest tag)
+# docker pull <image name>
+# docker pull httpd
+
+To pull a specific version of image
+# docker pull <image name:version>
+# docker pull httpd:2.4
+
+4.2. List Images:
+------------------
+# docker images or docker image ls
+# docker images
+# docker images -q    ---only list image ID.
+
+TAG − This is used to logically tag images.
+Image ID − This is used to uniquely identify the image.
+Created − The number of days since the image was created.
+Virtual Size − The size of the image.
+
+4.3. Removing Docker Images:
+------------------------
+To Delete Images
+
+# docker rmi
+# docker rmi ImageID
+
+To remove all dangling images
+#docker image prune
+
+To remove all images which doesn't have a container associated with them
+# docker image prune -a
+
+4.4. docker inspect Images:
+----------------------------
+To know details about an image
+
+# docker inspect <image name>
+# docker inspect httpd
+
+
+4.5. Docker Image history:
+----------------------------
+To look at the history of an image
+
+# docker image history <image name>
+# docker image history httpd
+
+
+4.6. Filter Dangling Images:
+-----------------------------
+To filter dangling images
+
+# docker images -f dangling=true
