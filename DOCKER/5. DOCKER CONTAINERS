@@ -1,0 +1,206 @@
+5.DOCKER CONTAINERS:
+=====================
+. Containers are instances of Docker images that can be run using the Docker run command. The basic purpose of Docker is to run containers
+
+
+Executing Commands inside Container:
+-----------------------------------
+# docker exec Container-Name  ls /var
+# docker exec Container-Name  hostname
+
+
+CONTAINER MANAGEMENT OPERATIONS:
+=================================
+
+5.1. Running a Container:
+--------------------------
+. Running of containers is managed with the Docker run command. To run a container in an interactive mode, first launch the Docker container.
+
+#  docker run –it centos /bin/bash
+   Then hit Crtl+p and you will return to your OS shell.
+
+5.2. Listing of Containers:
+---------------------------
+# docker ps         --list all running containers
+# docker ps -a      --list all containers
+
+
+5.3. docker top:
+--------------------
+To know running processes ionside a container.
+
+# docker top ContainerID
+
+
+
+5.3. Docker create:
+-------------------
+To create Container from image
+
+# docker create centos-container  --image=centos.
+
+
+5.4. Docker Start:
+-------------------
+To start Container:
+
+# docker start Container ID or Container Name
+
+
+5.5. Docker Stop:
+-------------------
+To stop Container:
+
+# docker stop  Container ID or Container Name
+
+
+5.6. Docker pause :
+-------------------
+To pause  Container:
+
+# docker pause  Container ID or Container Name
+
+
+5.7. Docker unpause :
+----------------------
+To start Container:
+
+# docker unpause  Container ID or Container Name
+
+
+5.8.Docker rm
+---------------
+This command is used to delete a container.
+
+# docker rm  Container ID or Container Name
+
+
+5.9. Docker stats
+-------------------
+This command is used to provide the statistics of a running container.
+
+
+# docker stats  Container ID or Container Name
+
+
+5.10. Docker kill:
+-------------------
+This command is used to kill the processes in a running container.
+
+# docker kill ContainerID
+
+
+5.11. Docker attach:
+----------------------
+This command is used to attach to a running container like login to container.
+
+# docker attach ContainerID
+# CTRL + P to get out of container.
+
+
+5.12. WORKING EXAMPLES:
+========================
+1. creating a container from an image
+
+# docker images
+# docker pull httpd
+# docker images
+# docker create httpd
+# docker ps 
+# docker start <container id> or <container name>
+# docker ps 
+# docker stop <container id> or <container name>
+# docker ps
+# docker start <container id> or <container name>
+# docker kill <container id> or <container name>
+
+
+
+2. Creating a container from an image using a custom name
+
+# docker images
+# docker create –name web01 httpd
+# docker ps -a
+# docker start web01
+# docker ps -a 
+# docker stop web01
+# docker ps -a
+# docker start web01
+# docker kill web01
+
+
+3. Creating a container without foreground process (entry point) - which is exiting automatically
+
+# docker pull centos
+# docker images
+# docker create –-name srv01 centos
+# docker start srv01
+# docker ps 
+# docker ps -a
+
+
+4. Creating a container without a foreground process - but bringing it to foreground
+
+# docker images
+# docker create –-name srv02 -it centos  (where -it means interactive terminal)
+# docker start srv02
+# docker ps 
+# docker ps -a (container should be up and running now)
+
+
+5. Attaching to containers 
+
+# docker attach srv02
+
+To exit, type exit at the prompt, but again this will terminate the container. How keep it up, we will learn in next use cases. 
+
+
+6. Combing all commands together using docker run 
+
+Running below command will start container but does not exit back to the shell
+
+# docker run httpd
+
+it executes docker pull,docker create,docker start,docker attach,docker stop at a time. Open another session to docker host and issue "docker events" at the prompt to see how docker run executing these commands in the background.
+
+Running below command will start container with a custom name but does not exit back to the shell, because it also gets attached
+
+# docker run ––name web02 httpd
+
+Press Ctrl+c to come back to the shell
+
+
+7. Running container using docker run without exiting - the detached mode, this will give the shell back to us.
+
+# docker run -d --name web03 httpd
+
+
+8. Running contianer without foreground process using docker run 
+Centos/Alpine/Ubuntu/Oraclelinux:8 will not have a foreground process, so how to keep them up and running when created using "docker run"
+
+# docker run -t -d --name srv03 centos
+
+
+9. To test images docker run with --rm param
+if you want to test your image by creating a container, but not preserving it
+
+# docker run -d --name web10 --rm hello-world (--rm means removing the container)
+
+You will see output of the startup command from the container, but when you execute docker ps -a, you wont see any container running with name web10. 
+
+
+10. Connecting to containers using docker attach and docker exec
+We saw docker attach earlier, but while exiting using exit command, it is also stopping the container. So ho do we exit from the container without stopping it when we use docker attach?
+
+# docker attach --detach-keys="ctrl-z" srv02
+
+Is there any alternative to docker attach to connect or execute commands directly from docker host?
+# docker exec is the command to be used.
+
+# docker exec -it srv02 /bin/bash
+this will take you to the terminal of the container and even after issuing exit command, your container will not be stopped.
+
+also
+# docker exec srv02 ls /var
+
+this will execute a command wihtout logging into the container, similarly you can execute any of the commands using docker exec
