@@ -1,0 +1,19 @@
+DOCKER HUB:
+===========
+. Docker Hub is a registry service on the cloud that allows you to download Docker images that are built by other communities. 
+. You can also upload your own Docker built images to Docker hub. In this chapter, we will see how to download and the use the Jenkins Docker image from Docker hub.
+
+The official site for Docker hub is − https://www.docker.com/community-edition#/add_ons
+
+Step 1 − First you need to do a simple sign-up on Docker hub.
+Step 2 − Once you have signed up, you will be logged into Docker Hub.
+Step 3 − Next, let’s browse and find the Jenkins image.
+Step 4 − If you scroll down on the same page, you can see the Docker pull command. This will be used to download the Jenkins image onto the local Ubuntu server.
+Step 5 − Now, go to the Ubuntu server and run the following command −
+
+# docker pull jenkins
+
+To run Jenkins, you need to run the following command −
+
+# docker run -p 8080:8080 -p 50000:50000 jenkins
+
