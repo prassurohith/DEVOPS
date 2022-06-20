@@ -1,0 +1,250 @@
+6.DOCKER NETWORKING:
+======================
+In Docker we have Different types of N/W % Types.
+1.Bridge: default N/W to Comminicate multiple contaiers
+2.Host: No N/W for Containers like isolation.
+3.Overlay: using for swam services.
+4.None:no N/W.
+5.MacVlan: like a Physical World Containers get MacAddresses.
+
+Bridge N/w:
+-----------
+Container-1 : 172.17.0.3
+Container-2: 172.17.0.2
+
+Gateway: 172.17.0.1
+
+Docker Host IP: 192.168.0.108
+
+# docker exec -it container1 ping container2-ip-172.17.0.2
+
+
+6.1. To view Docker Networks:
+-----------------------------
+# docker network ls
+
+bridge
+host
+none
+
+6.2. Docker Inspect:
+---------------------
+# docker inspect Container ID    --to get currently used N/W
+# docker inspect network bridge
+
+6.3. create your Own N/W:
+--------------------------
+# docker network create my_bridge --driver bridge
+# docker network ls
+# docker inspect my_bridge
+# docker run -dit -name container1 --network=my_bridge centos-image
+
+using IPTABLES NATTING CONCEPTS We can make Communication 
+B/W one Bridge N/W to another N/W.
+
+Example: 
+---------
+# iptables -L
+# iptables -I FORWARD -s 172.18.0.0/16 -d 172.19.0.0/16 -j ACCEPT   front rule
+# iptables -I FORWARD -s 172.19.0.0/16 -d 172.18.0.0/16 -j ACCEPT   reverse rule
+# iptables -L
+
+
+Real Time:
+===========
+To inspect network
+docker network inspect <network name>
+
+To inspect container
+docker inspect <container name>
+
+__________________________________
+To list all networks available in docker hosts
+docker network ls
+By default there are three drivers available in any docker hosts
+bridge
+host
+none 
+
+If you use ifconfig command, you will also notice that this network interface is called "docker0":  is nothing but bridge
+
+All Docker installations have this network. If you run a container, say, Nginx, it will be attached by default to the bridge network:
+docker run -dit --name nginx nginx:latest
+
+You can check the containers running inside a network, by using the "inspect" command:
+docker network inspect bridge 
+
+Docker uses a software-based bridge network which allows containers connected to the same bridge network to communicate while isolating them from other containers not running in the same bridge network.
+
+Let's see how containers running in the same bridge network can connect to each other. Let's create two containers for testing purposes:
+
+docker run -dit --name srv1 centos 
+docker run -dit --name srv2 centos 
+
+These are the IP addresses of our containers: 
+docker inspect srv1 | jq -r '.[0].NetworkSettings.IPAddress' 
+docker inspect srv2 | jq -r '.[0].NetworkSettings.IPAddress' 
+
+Let's try to ping a container from another one using one of these IP addresses. For example, ping the container named "srv1" from "srv2", using its IP . 
+docker exec -it srv1 ping 172.17.0.3 
+
+So, containers on the same bridge can see each other using their IPs. What if I want to use the containers' name instead of the IP. 
+docker exec -it srv1 ping srv2
+--- ping: bad address 'srv2' 
+
+docker exec -it srv1 ping ip address of srv2
+
+We can understand that containers running on the same bridge network are able to see each other using their IP addresses. On the other hand, the default bridge network does not support automatic service discovery.
+
+
+__________________________________
+User-defined Bridge Networks
+Using the Docker CLI, it is possible to create other networks. You can create a second bridge network using:
+
+To create a new network 
+docker network create my_bridge1 –driver bridge
+Create one more network
+docker network create my_bridge2 –driver bridge
+
+Create two more instances and attach them to my_bridge1
+docker run -dit --name srv10 --network=my_bridge1 centos
+docker run -dit --name srv11 --network=my_bridge1 centos
+
+Create another two containers and attach them to my_bridge2
+docker run -dit --name srv20 --network=my_bridge1 centos
+docker run -dit --name srv21 --network=my_bridge1 centos
+
+Now try pinging them from one another using
+docker exec -it srv10 ping srv11
+docker exec -it srv11 ping srv10
+
+docker exec -it srv20 ping srv21
+docker exec -it srv21 ping srv20
+
+We can conclude that only user-defined bridge networks support automatic service discovery. If you need to use service discovery with containers, don't use the default bridge, create a new one. 
+
+
+
+__________________________________
+Now how to connect these bridge networks together? 
+iptables -L --> to list the current firewall rules
+
+here source ip and destination may change in your case, get them from docker network inspect <network name> command for your networks
+iptables -I FORWARD -s 172.24.131.0/24 -d 172.24.132.0/24 -j ACCEPT
+iptables -I FORWARD -d 172.24.131.0/24 -s 172.24.132.0/24 -j ACCEPT
+
+Now try pinging them from one another using IP addresses between bridge networks.
+docker exec -it srv10 ping ipaddress of srv11
+docker exec -it srv11 ping ipaddress of srv10
+
+docker exec -it srv20 ping ipaddress of srv21
+docker exec -it srv21 ping ipaddress of srv20
+
+7. MAC VLAN VOLUMES:
+======================
+- This Driver assighns mac address to containers to make them look like physical devices. The traffic is routed between containers through their mac addresses.
+  This N/W is used when you want the containers to look like a physical device.
+  
+
+REAL TIME:
+===========
+The Host Network
+No isolation between host and containers on this network, to the outside world they are on the same network 
+A container running in the host network matches the networking configurations of the host.
+If we take the example of an Nginx image, we can notice that it exposes the port 80.
+
+EXPOSE 80
+If we run the container, we should normally publish the port 80 on another port, say 8080. 
+
+docker run -dit -p 8080:80 nginx:latest
+
+The container is now accessible on port 8080 in default bridge. We can access it using docker_host_ip:8080 
+
+But When we run the same container on the host network, published ports will be ignored since the port 80 of the host will be used in all cases. If you run:
+
+docker run -dit --name nginx01 --network host -p 8080:80 nginx:latest
+
+Docker will show a warning:
+WARNING: Published ports are discarded when using host network mode
+
+Let's remove this container and re-run it without publishing its ports:
+
+docker run -dit --name nginx01 --network host nginx
+
+We can access it using docker_host_ip 
+
+Try creating one more container using httpd which also uses same port as nginx. 
+docker run -dit --name httpd01 --network host httpd
+so as nginx is already running and port 80 is being used by it we cannot access httpd01 using docker_host_ip in this case. 
+
+Now lets stop nginx01, start httpd01 and then verify using docker_host_ip, this time httpd01 responds. At any point of time only one container with same port can be accessed
+
+Since there is no network address translation (NAT), running a container on the host network can optimize performance. When you run a container on the host network, its network will not be isolated from the host, and it will not get its own IP; these are the limits of this type of network. 
+
+__________________
+
+MacVlan Networks
+
+Issue "ifconfig" and observer only docker0 and ens32 (if its ubuntu) and lo adapters showing up. 
+
+Then issue the following command to create a macvlan 
+docker network create -d macvlan -o parent=ens32 --subnet 192.168.0.0/24 --gateway 192.168.0.1 --ip-range 192.168.0.192/27 --aux-address 'host=192.168.0.223' my_macnet
+
+-d --> driver
+-o --> options
+--subnet --> your network address range
+--gateway --> your network gateway
+--ip-range --> exclude specific ip's from subnet range to use for container allocation
+--aux-address --> reserved for new virtual interface that we are going to create to macvlan work
+host --> mac0 virtual interface that we are going to create and to assign its ip
+
+Add bonding between mac0 (virtual interface) and docker hosts main interface
+ip link add mac0 link ens32 type macvlan mode bridge
+
+Assign ip address to mac0 (virtual interface)
+ip addr add 192.168.0.223/32 dev mac0
+
+Bring mac0 up
+ifconfig mac0 up
+
+Check if its showing up
+ifconfig
+
+Add a route to let docker-host how to communicate with containers directly as they are existing side by side
+ip route add 192.168.0.192/27 dev mac0
+
+NOTE: change your ip's according to your network
+
+Finally, create a container on macvlan
+docker run -dit --name srv01 --network=my_macnet centos 
+docker inspect srv01 (get ip of the container)
+ping that container ip from docker host directly and vice versa
+
+___________________________________
+To create a Docker Volume use the command: 
+docker volume create testvol1
+
+To verify you have successfully created a Docker volume, prompt Docker to list all available volumes with:
+docker volume ls
+
+To see more information about a Docker volume, use the inspect command: 
+docker volume inspect testvol1
+
+To mount a data volume to a container add the --mount flag to the docker run command. It adds the volume to the specified container, where it stores the data produced inside the virtual environment. 
+docker run -it --name=srv02 --mount source=testvol1,destination=/data centos
+
+create some files on docker container in the newly attached volume
+docker exec -it srv01 /bin/bash
+cd /data
+touch file.txt
+vi file.txt
+type some random data in the file.....
+press escape on keyboard after typing the data
+press :
+type wq and then ENTER to save the file.
+
+Verify the same data reflecting on host volume
+navigate to actual path of the volume (you can retrieve it from docker volume inspect testvol1 ex: /var/....)
+cd to that directory
+issue ls command to list of files
+cat file.txt to see the data that we added from the container.  
