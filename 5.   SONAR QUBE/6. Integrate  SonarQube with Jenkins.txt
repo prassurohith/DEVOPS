@@ -3,13 +3,15 @@
 =====================================
 
 1. Prerequisites:
-====================
+------------------
+- Create an GCP Instance.
+
 1. a Sonarqube Server Click here to Setup Sonarqube server
 2. A Jenkins server Click here to set up a Jenkins server
 
 
 2. On Sonarqube server:
-=========================
+------------------------
 - Generate a sonarqube token to authenticate from Jenkins.
 
 1. Login to SonarQube.
@@ -23,7 +25,8 @@
 
 
 3. On Jenkins server:
-======================
+----------------------
+
 1. Install Sonarqube plugin
 
 -->Manage Plugins--->Search for Sonar Qube Scanner----->Install With out restart.
@@ -43,7 +46,3 @@
 - manage jenkins---->global tool configuration--->sonarqube scanner---->install automatically-->apply save.
 
 5.Run Pipeline job
-
-
-
-sqp_fcb8ea2daded22f981dc582a4ae788860f3f4a70

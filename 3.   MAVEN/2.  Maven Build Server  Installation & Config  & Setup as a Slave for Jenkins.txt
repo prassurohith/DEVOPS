@@ -4,6 +4,8 @@
 
 1. Prerequsites:
 ===================
+- Create an GCP Instance.
+
 
 1.1. Hostname,HostEntries & Ip  Configuration:
 -----------------------------------------------
