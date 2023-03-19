@@ -20,6 +20,8 @@ Developer Activities:
 . Deploy it local application server.
 . push the working code to Source Code Repository.
 
+
+
 1.3.Challenge over here :
 -----------------------------
 . While writing his appilcation code its quite common behaviour that using third party binaries or packages.
@@ -35,7 +37,6 @@ Developer Activities:
 . Sharing a source code and along with file called POM.xml.
 
 
-
 1.4. How does it work at devOps Engineer level:
 -----------------------------------------------
 . once developer is tested his code he will comit and push code to scm. 
@@ -44,7 +45,8 @@ Developer Activities:
 . once u have taken those dependencies u need to build and do unit test. and deploy apps. 
 . Maven can help us here.
 
-************************************************************************************************************************************************************************************
+
+___________________________________________________________________________________________________________________________________________________________________________
 
 2. Install Java & Eclipse on Windows :
 ========================================
@@ -81,7 +83,7 @@ Verify:
 5. select java for developers options and choose path for install.
 4. Launch and check for workspace for your new project.
 
-******************************************************************************************************************************************
+___________________________________________________________________________________________________________________________________________________________________________
 
 3. Create First Maven Project:
 =================================
@@ -127,7 +129,7 @@ To Buld an App
 
 --Select your project --->RightClicl--->Run--->>Maven Build--->>Goals--->>clean install package--Run
 
-******************************************************************************************************************************************
+___________________________________________________________________________________________________________________________________________________________________________
 
 4. Maven Goals:
 ===================
@@ -146,7 +148,10 @@ verify        :     run any checks to verify the package is valid and meets qual
 install       :     Install the package into local repository, for use as a dependency in other projects locally.
 deploy        :     copies the final package to the remote repository for sharing with other projects.
 
-**************************************************************************************************************************************************
+
+
+___________________________________________________________________________________________________________________________________________________________________________
+
 
 5. POM.XML:
 ==============
@@ -156,13 +161,15 @@ deploy        :     copies the final package to the remote repository for sharin
 - It contains default values for most projects.
 - What ever dependencys you mentioned it will download from maven repos.
 
-**********************************************************************************************************************
+___________________________________________________________________________________________________________________________________________________________________________
+
 6. Transtive Dependency:
 ========================
 - Some additional dependencys can be download even u not mentioned in pom.xml called as Transtive Dependency.
 - It Depends on which u mentioned in jar dependencys.
 
-************************************************************************************************************************
+___________________________________________________________________________________________________________________________________________________________________________
+
 
 7. Maven Repositories:
 ======================
@@ -171,7 +178,10 @@ Local and Remote Repository.
 - When ever you run a Maven Project Goals first time maven project builds a local repository  under users home .M2 directory.
 - When ever we run any commands it requires any dependency it will pull from internet (Maven Enterprise Repository) or (Maven Central Repository) and stores in local repository  based on .jar files. This information  again gathered from pom.xml
 
-*****************************************************************************************************************************************************************************************************************************************************************
+
+
+___________________________________________________________________________________________________________________________________________________________________________
+
 
 8. Push your Maven Project to GitHub:
 =========================================
@@ -188,7 +198,9 @@ Step1:
 
 - for above activity you meed to make a config b/w gitbash & github.
 
-********************************************************************************************************************************************************************
+___________________________________________________________________________________________________________________________________________________________________________
+
+
 
 
 

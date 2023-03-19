@@ -1,25 +1,43 @@
 
- Maven Installation and Configure as a Slave for Jenkins CI/CD Server:
-=======================================================================
+2. Maven Installation and Configure as a Slave for Jenkins CI/CD Server:
+===========================================================================
 
 1. Prerequsites:
 ===================
-Jave Jdk Installation.
------------------------
+
+1.1. Hostname,HostEntries & Ip  Configuration:
+-----------------------------------------------
+
+# hostnamectl  set-hostname  Maven_Build_Server
+# exec bash
+
+# hostnamectl 
+
+# vi  /etc/hosts
+
+<ip>   Maven_Build_Server
+
+:wq!
+
+
+
+1.2. Jave Jdk Installation.
+-----------------------------
 
 # cd /opt/
-# wget https://download.oracle.com/otn-pub/java/jdk/11.0.1+13/90cf5d8f270a4347a95050320eef3fb7/jdk-11.0.1_linux-x64_bin.tar.gz
-# tar -xvf    jdk-11.0.1_linux-x64_bin.tar.gz
+# mkdir  java 
+# wget https://download.oracle.com/java/17/latest/jdk-17_linux-x64_bin.tar.gz
+# tar -xvf  jdk-17_linux-x64_bin.tar.gz
 # ls 
-# cd jdk-11.0.1
-
-- Setting environmental variable for java.
+# cd jdk-17.0.6
 
 
+
+. Setting environmental variable for java.
 
 # vi /etc/profile.d/java.sh
 
-export JAVA_HOME=/opt/java/jdk1.8.0_201
+export JAVA_HOME=/opt/java/jdk-17.0.6
 export PATH=${JAVA_HOME}/bin:${PATH}
 
 :wq!
@@ -27,23 +45,28 @@ export PATH=${JAVA_HOME}/bin:${PATH}
 # source /etc/profile.d/java.sh
 # java -version
 
+_______________________________________________________________________________________________________________________________________________________
 
-*****************************************************************************************************************************************
 
 2. Maven Installation on Aws Ec2 Instance:
 ===========================================
 
+2.1. Download & Install Apache-Maven :
+--------------------------------------
 # cd /opt
 # mkdir mvn
 # cd /opt/mvn
-# wget http://www.apache.org/dist/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz
-# tar -xvf apache-maven-3.5.4-bin.tar.gz
+# wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
+# tar -xvf apache-maven-3.8.8-bin.tar.gz
 # ls
-# apache-maven-3.5.4
-# mv apache-maven-3.5.4  apache-maven
+  apache-maven-3.8.8
+# mv apache-maven-3.8.8  apache-maven
 
-- setting environment variables for maven
 
+
+
+2.2. setting environment variables for maven:
+---------------------------------------------
 
 # vi  /etc/profile.d/maven.sh
 
@@ -57,25 +80,33 @@ export PATH=${M2_HOME}/bin:${PATH}
 :wq!
 
 
-# chmod +x maven.sh
+# chmod 777 maven.sh
 # source /etc/profile.d/maven.sh
 
-- Verify maven. 
-----------------
+
+
+2.3.Verify maven. 
+------------------
 # mvn
 # mvn --version
 
-****************************************************************************************************************************************************************
+______________________________________________________________________________________________________________________________________________________________________________________________
+
+
 3. Maven Build Server Integration with Jenkins as a Slave:
 ============================================================
-Maven Server End:
-------------------
+
+
+3.1. Maven Server End:
+------------------------
+
 1. Create a jenkins user in jenkins Master Server & add user to Sudoers file to make access of all commands.
 2. Enable Password Login in Maven build Server.
 
 
-jenkins Server enb:
---------------------
+3.2.jenkins Server enb:
+------------------------
+
 1. Login to Jenkins.
 2. Install plugins related to  Maven like : Maven Integration, Maven Invoker.
 3. Manage jenkins --->> Manage Nodes & Cloud ---->> Add a New Node ---->> Name Agent & Select Permanent Agent-->>Ok.
@@ -89,17 +120,21 @@ jenkins Server enb:
 
 4. Verify.
 
-*******************************************************************************************************************************************
+_______________________________________________________________________________________________________________________________________________________
+
 
 4. Maven Maven Project:
 ==========================
 
+4.1. Intro:
+------------
 . To create project structure
 . it will downlaod all plugins initially then not required. 
 . it will download from online repos and download from it
 
-. Creating sample project:
-----------------------------
+
+4.2. Creating sample project:
+------------------------------
 
 # mvn archetype:generate
 
@@ -121,11 +156,11 @@ THE PROJECT NAME IS KNOWN AS ARTIFACT ID:
 
 :Y -->>CONFIRM
 
-******************************************************************************************************************************************
 
-4. Common Maven Goals:
-=======================
+4.3 Common Maven Goals:
+---------------------------
 
 # mvn  clean  install         -->clean previous history and build artifactory.
 
-******************************************************************************************************************************************
+
+___________________________________________________________________________________________________________________________________________________________________________________
