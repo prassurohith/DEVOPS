@@ -1,4 +1,4 @@
 
-4. SonarType Artifactory Installation on Docker Containers:
+4. SonarTypeNexus Artifactory Installation on Docker Engine:
 =============================================================
 

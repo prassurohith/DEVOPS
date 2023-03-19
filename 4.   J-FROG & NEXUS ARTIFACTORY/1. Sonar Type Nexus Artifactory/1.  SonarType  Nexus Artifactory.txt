@@ -12,7 +12,6 @@ SonarType Artifactory
   making it easier to distribute software.
 
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 1.2. What is Build Artifacts ?
@@ -21,7 +20,6 @@ SonarType Artifactory
 - Build Artifacts are files produced by a build.
 - Typically, these include distribution packages, WAR Files, container images, reports, log files, and so on.
 
--------------------------------------------------------------------------------------------------------------------------------------------------------
 
 1.3. Nexus Repository:
 ------------------------
@@ -37,7 +35,6 @@ SonarType Artifactory
 - npmjs.org
 - Docker Hub.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 1.4. Nexus Repository Manager :
 -----------------------------------
@@ -54,7 +51,6 @@ SonarType Artifactory
 -	Insulate your company from outages in the internet, outages of public repositories ( Maven Central, npm, etc ).
 
 
--------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 1.5. Nexus Repositories:
 ---------------------------
@@ -66,7 +62,6 @@ SonarType Artifactory
 - You can host your own repositories, and also use Nexus as a Proxy for public repositories. With such a proxy the time to receive an artifact is reduced and it save bandwidth.
 
 
------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 1.6. Nexus Proxy:
@@ -75,7 +70,6 @@ SonarType Artifactory
 - Proxy repository is a substitute access point and managed cache for remote repositories. 
 - These could be the public repositories for open source components or private repositories such as another Nexus Repository for instance.
 
-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 1.7. Nexus Versions :
 ----------------------
@@ -91,19 +85,17 @@ SonarType Artifactory
 -	Nexus Pro also offers meta data management as well as support for distributed teams and High Availability Functionality.
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------
 
 1.8. Nexus Releases:
+------------------------
 -	Latest Version is 3.37.3.
 -	Runs on port 8081 by default.
 -	Run as a Service or a container.
 
------------------------------------------------------------------------------------------------------------------------------------------------------
 
 1.9. Features:
+---------------
 -	Repository Management.
 -	Repository Replication.
 -	Access Control: Roles & Users.
 -	User Authentication.
-
------------------------------------------------------------------------------------------------------------------------------------------------------
