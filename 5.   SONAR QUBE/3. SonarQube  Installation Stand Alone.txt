@@ -1,0 +1,30 @@
+
+
+
+
+
+
+
+
+
+  73  yum install -y yum-utils
+   74  yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo
+   75  yum install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+   76  yum install docker-ce docker-ce-cli
+   77  systemctl start docker
+   78  systemctl enable  docker
+   79  clear
+   80  docker image pull sonarqube:latest
+   81  docker images
+   82  docker container run -d  --name sonarqube -p 9000:9000 sonarqube:latest
+   83  docker ps -a
+   84  clear
+   85  docker ps 
+   86  curl -v 10.0.1.17:9000
+   87  clear
+   88  ll
+   89  docker ps
+   90  vi /etc/profile.d/sonarqubestart.sh
+   91  chmod 777  /etc/profile.d/sonarqubestart.sh
+   92  exit
+   93  docker ps 

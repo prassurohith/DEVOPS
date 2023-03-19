@@ -1,0 +1,64 @@
+
+JFROG-ARTIFACTORY:
+====================
+
+1.What is Artifact:
+---------------------
+. When Maven Build source code a final product will generate called Artifact.
+. Example: Java Code.
+  When ever your trying to build java code with maven build tool you will get .jar or .war or .ear.
+
+2. Why not use source code:
+-------------------------
+. Server cant understand source code.
+. Clients can copy and use Source Code.
+. This is why companys can share only artifact not source code.
+
+3. Why Application Servers:
+-------------------------------
+. you need a Application Servers like Tomcat, WebSphere, WebLogic etc.
+. To Deploy your artifact on top of Application Servers.
+
+4. Why Artifactory:
+--------------------
+. To store a Artifactory.
+. Its mostly like a your Artifact Repository or Bank.
+. It will Hold or Maintain Artifacts & Dependencys or Libraries for Maven Build.
+. . An Artifact repository Manages your end to end artifact lifecycle and supports diffrent software package management systems 
+  While providing consistency to your CI/CD workflow. An Artifact Repository is both a source for artifacts needed for build  and target to deploy artifacts generated in build provcess.
+
+
+5. J-Frog Artifactory:
+------------------------
+. JFrog Artifactory is a repository manager that supports all available software package types, 
+  enabling automated continous integration and delivery. Add Artifactory to your toolchain and 
+  store build artifacts in your Artifactory repository.
+
+. J-Frog OpenSource & Pro versions Available.
+
+. Check How to install jfrog artifactory on google.
+
+
+6. J-From Repositorys:
+-----------------------
+. It Supports so many tools. 
+
+
+Create Repository:
+-------------------
+1. Select Create Repo--->>Create--->>Finish.
+2. When you create repo it will create 5 default repos.
+
+Artifactory Repos:
+------------------
+. In J-Frog Artifactory we can create 3 diff kind of repos we can create.
+
+1. Local Repository   : Which will be available locally physically exists. you can use this repo to communicate with Maven. 
+
+2. Remote Repository  : You can use this one for your J-Frog Artifactory.
+
+3. Virtual Repository : It will communicate wit remote repo.
+
+
+
+

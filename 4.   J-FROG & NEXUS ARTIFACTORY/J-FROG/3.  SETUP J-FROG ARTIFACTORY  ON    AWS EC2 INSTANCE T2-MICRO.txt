@@ -1,0 +1,92 @@
+
+2. SETUP J-FROG ARTIFACTORY ON AWS EC2 INSTANCE T2-MICRO :
+===========================================================
+
+1. Prerequisites:
+------------------
+1. Create Aws Ec2 Instance with T2-Medium Instance Type.
+2. Allow Port: 8081 for communication in Security Group.
+
+
+2. Setup J-Frog:
+----------------
+1. login to above created EC2 Instance.
+
+2. Prerequisites:
+
+# yum install -y net-tools rsync
+
+3. Download latest JFrog Artifactory OSS RPM and copy it to the home directory of root user.
+
+#  wget  https://releases.jfrog.io/artifactory/bintray-artifactory/org/artifactory/oss/jfrog-artifactory-oss/[RELEASE]/jfrog-artifactory-oss-[RELEASE]-linux.tar.gz
+
+4. 
+
+***************************************************************************************************************************************************************************
+
+2. Integrate J-Frog Artifactory with Maven Build Server:
+========================================================
+
+1. Generate Pom code in j-frog & Update in maven pom.xml:
+----------------------------------------------------------
+. Update your project POM.XML file to communicate with Local Repos in J-Frog Arctifactory Server Repositorys.
+. Local Repositorys:  libs-snapshot-local or Release-local.
+. for setting up above you have to generate a pom.xml type code in j-frog artifactory.
+
+- Select Artifactory --->> Select Repository --->  Select Local Repository ---->>  select libs-snapshot-local or Release-local --->> Right side top Select SETMEUP.
+- MavenSettings--->> select libs-snapshot-local or all ---->> Copy all Deployment code.
+- Update your pom.xml edit and paste after dependencys.
+- Generally what your said to your Maven is use above repos for dependencys for Build & Compile.
+
+
+2. Setup Authentication:
+---------------------
+. Create a new user in j-frog called "maven" with admin privlages.
+
+- Select Artifactory --->> Select Repository --->  Select Local Repository ---->>  select libs-snapshot-local or Release-local --->> Right side top Select SETMEUP.
+- Generate MavenSettings--->>Generate Settings ---->> Copy or Download content.
+
+. update credentials in settings.xml file on maven under maven home directory called "M2".
+. craete vi settings.xml
+. Copy paste which you generate above and change username and password of your j-frog artifactory.
+
+
+3. verify :
+------------
+1. Login to Maven Server.
+2. Execute any maven goals like: mvn clean install.
+
+*******************************************************************************************************************************************
+
+3. Versioning:
+=================
+. Assume above code is working as expected.
+. Now i would change snapshot and change code as a version.
+
+
+1. Generate Pom code in j-frog & Update in maven pom.xml:
+----------------------------------------------------------
+. Update your project POM.XML file to communicate with Local Repos in J-Frog Arctifactory Server Repositorys.
+. Local Repositorys:   libs-Release-local.
+. for setting up above you have to generate a pom.xml type code in j-frog artifactory.
+
+- Select Artifactory --->> Select Repository --->  Select Local Repository ---->>  select libs-snapshot-local or Release-local --->> Right side top Select SETMEUP.
+- MavenSettings--->> select libs-release or all ---->> Copy all Deployment code.
+- Update your pom.xml edit and paste after dependencys under distribution management.
+- Generally what your said to your Maven is use above repos for dependencys for Build & Compile.
+
+
+2. Setup Authentication:
+---------------------
+. Create a new user in j-frog called "maven" with admin privlages.
+
+- Select Artifactory --->> Select Repository --->  Select Local Repository ---->>  select libs-Release-local --->> Right side top Select SETMEUP.
+- Generate MavenSettings--->>Generate Settings ---->> Copy or Download content.
+
+. update credentials in settings.xml file on maven under maven home directory called "M2".
+. craete vi settings.xml
+. Copy paste which you generate above and change username and password of your j-frog artifactory.
+
+
+
+

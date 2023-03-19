@@ -1,0 +1,54 @@
+
+1. Monitoring a Kubernetes Cluster:
+====================================
+- How to Monitor & What to monitor like.
+- Such as no of nodes, How many are Healthy & Performance metrics like- N/W, CPU, RAM, DISK Utilization.
+- Pod Level Metrics such as no of pods, Performance Metrics of each pod such as CPU & Memory Usage.
+- We Need a Solution to monitor all above & store all logs.
+- K8's doesnt come with build in logging feature solution.
+- No of Open Source Available.
+- Metrics Server, DataDog, Prometheus, ElasticStack, Dynatrace.
+- Metric Server is used as generic Monitoring Solution.
+- In Memory Solution Cant Store Historic data.
+
+
+2. How Monitoring Solution Works:
+==================================
+- K8's running agents on each nodes kubelets & its responsible for receiving instructions from k8's API Server from MasterNode & running pods on Node.
+- Kubelet also have "C-Advisor" component or "Container Advisor". its responsible for receiving performance metrics from pods & exposing them to kubelet API 
+  to Metrics Available to Metrics Server.
+
+Example:
+--------
+- use "Elastic Search" for analysing of System Metrics & App Logs.  
+
+
+K8's:
+-----
+
+# kubectl  create -f  even-simulator-pod
+# kubectl  logs   -f  even-simulator-pod    ----To View Logs of Pod.
+# kubectl  logs   -f  podsnginx/redis       ----To View Logs of container.
+
+
+1. Enable Metrics:
+--------------------
+- Download libraries from GitHub.
+- Download & Install.
+
+Node Metrics:
+--------------
+# kubectl  top node 
+
+Pod Metrics:
+-------------
+# kubectl top  pods
+
+
+2. Managing App Logs:
+----------------------
+# docker run kodecloud/event-simulator
+
+# docker  logs -f  <CID>   ----To View Logs.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------

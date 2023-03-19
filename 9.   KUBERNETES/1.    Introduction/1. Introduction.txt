@@ -1,0 +1,25 @@
+
+1. Introdoction:
+==================
+. CKA    : Certified Kubernetes Administrator.
+. Version: 1.19.0
+.ExamCost: 300$
+
+2. Prerequisites:
+================== 
+. Docker.
+. Basics of k8.
+. Pods, Deployments, Services.
+. YAML
+. Setting up a Basic Lab Env k8's.
+
+
+3. Certified Kubernetes Admin Program:
+=======================================
+. CKA developed by cloud native computing foundations along with linux foundations.
+
+====> DESIGHN + BUILD + ADMIN
+
+Website: https://www.cncf.io/certification/cka/
+
+. Always Able to refer k8 docs while exam.

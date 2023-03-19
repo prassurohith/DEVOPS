@@ -1,0 +1,143 @@
+
+6. Apllication LifeCycle Management:
+======================================
+
+1. Rolling Updates & RollBack Updates:
+========================================
+
+- When you first create a deployment "RollOut" will be created. a New rollout creates a new "Revision 1" Creation.
+- In Future a new container version deployed a new rollout will be created. a new "rollout 2" creates a new "Revision 2".
+
+Note:
+-----
+- Above rollouts will help you to keep a track of changes.
+
+Version1 ----> Version2------->Version3  mades to your deployment & ends us to rollback app if needed.
+
+
+RollOut:
+-------- 
+
+Revision 1:   Container1-Nginx1.2                Container2-Nginx1.2              Container3-Nginx1.2
+
+Revision 2:   Container1-Nginx1.3                Container2-Nginx1.3              Container3-Nginx1.3
+
+
+RollOut Commands:
+------------------
+
+# kubectl  rollout  status  deployment/myapp-deployment
+# kubectl  rollout  history deployment/myapp-deployment
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Deployment Strategys:
+=========================
+
+1. Recreated Strategy:
+----------------------
+- If you have 5pods contains webapps. Nginx1.2. & if you want to upgrade to Nginx1.3.
+- you can delete all pods of lower version & creates 5 pods with new Nginx1.3 version 
+
+- Delete all Pod = Create New Pod.
+
+C1-N1.2-Down    C2-N1.2-Down     C3-N1.2-Down   =    C1-N1.3-Up     C2-N1.3-Up   C3-N1.3-Up
+
+
+-Above Strategy is known as "Recreate Strategy".
+
+
+2. Rolling Update:
+---------------------
+- Bring Down 1Pod[ Nginx1.2]  & BringUp 1pod[Nginx1.3] like for all pods.
+- No Downtime & Default Strategy.
+- No App DownTime.
+
+
+C1-N1.2-Down    C1-N1.3-Up     C2-N1.2-Down       C2-N1.3-Up     C3-N1.2-Down   C3-N1.3-Up
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. How you will update your App Deployment:
+============================================
+
+1. To update a Deployment:
+----------------------------
+1. Make a Change to Deployment.
+2. Kubectl apply -f deploy-def.yaml
+
+Rollout Create ===> Revision 2
+
+
+# kubectl set image  deployment/myapp-deployment  [nginx=nginx:1.91]
+- Not Recommended.
+
+Verify:
+-------
+
+# kubectl describe deployments/myapp-deployment
+# kubectl get replicas.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Some Issues in current deployment = rollback to previous version app needed.
+==================================================================================
+
+# kubectl rollout undo  deployment/myapp-deployment
+
+Verify:
+--------
+
+# kubectl get replicas
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5. All Cycle For App update :
+=============================
+
+
+Create:
+--------
+# kubectl create -f  deployment-def.yaml
+
+list:
+------
+# kubectl get deployments
+
+
+Update:
+--------
+# kubectl apply -f deployment-def.yaml
+# kubectl set image deployment/myapp-deployment nginx=nginx1.9.1
+
+
+Status:
+--------
+# kubectl rollout  status  deployment/myapp-deployment
+
+RollBack:
+----------
+
+# kubectl rollout history  deployment/myapp-deployment
+# kubectl  rollout undo  deployment/myapp-deployment
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

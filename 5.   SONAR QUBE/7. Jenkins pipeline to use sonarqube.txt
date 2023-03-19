@@ -1,0 +1,59 @@
+Skip to content
+Search or jump to…
+Pull requests
+Issues
+Codespaces
+Marketplace
+Explore
+ 
+@prassurohith 
+ravdy
+/
+DevOps
+Public
+Fork your own copy of ravdy/DevOps
+Code
+Issues
+Pull requests
+8
+Actions
+Projects
+Security
+Insights
+DevOps/sonarqube/Jenkinsfile
+@ravdy
+ravdy Create Jenkinsfile
+Latest commit cee6407 on Sep 7, 2021
+ History
+ 1 contributor
+29 lines (28 sloc)  721 Bytes
+
+pipeline{
+    agent any
+    environment {
+        PATH = "$PATH:/opt/apache-maven-3.8.2/bin"
+    }
+    stages{
+       stage('GetCode'){
+            steps{
+                git 'https://github.com/ravdy/javaloginapp.git'
+            }
+         }        
+       stage('Build'){
+            steps{
+                sh 'mvn clean package'
+            }
+         }
+        stage('SonarQube analysis') {
+//    def scannerHome = tool 'SonarScanner 4.0';
+        steps{
+        withSonarQubeEnv('sonarqube-8.9') { 
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
+    }
+        }
+        }
+       
+    }
+}

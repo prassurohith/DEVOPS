@@ -1,0 +1,74 @@
+
+4. Deployments:
+================
+
+1. What is a Kubernetes Deployment?
+------------------------------------
+- A Kubernetes Deployment tells Kubernetes how to create or modify instances of the pods that hold a containerized application. 
+- Deployments can help to efficiently scale the number of replica pods, enable the rollout of updated code in a controlled manner, or roll back to an earlier deployment version if necessary. 
+- In Prod all apps will be deployed as a deployment more uses like, easyupgrade, Downgrade, Scale etc.
+- Less DownTime, RollingUpdate = one by one app & RollBack.
+
+
+2. What are Kubernetes Deployment Strategies?
+---------------------------------------------
+- There are below types of deployments.
+
+Recreate Deployment: 
+---------------------
+. The recreate strategy terminates pods that are currently running and ‘recreates’ them with the new version. 
+. This approach is commonly used in a development environment where user activity isn’t an issue.
+. Because the recreate deployment entirely refreshes the pods and the state of the application, 
+- you can expect downtime due to the shutdown of the old deployment and the initiation of new deployment instances. 
+
+
+Rolling Update Deployment:
+----------------------------
+- The rolling update deployment provides an orderly, ramped migration from one version of an application to a newer version. 
+- A new ReplicaSet with the new version is launched, and replicas of the old version are terminated systematically as replicas 
+  of the new version launch. Eventually, all pods from the old version are replaced by the new version.
+- The rolling update deployment is beneficial because it provides an organized transition between versions. However, it can take time to complete.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Create Deployment:
+---------------------
+
+# vi Deployment-Nginx.yaml
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+# kubectl create -f  Deployment-Nginx.yaml
+
+Verify:
+--------
+
+# kubectl get deployments
+# kubectl get replicasets
+# kubectl get  pods
+ 
+# kubectl describe deployments/<deployment-name>
+# kubectl get all 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------

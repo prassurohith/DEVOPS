@@ -1,0 +1,19 @@
+
+TomCat 
+======
+
+1. What is TomCat ?
+---------------------
+. Tomcat is a OpenSource.
+. It is Web Server and Developed by Apache Software Foundation.
+. Apache Tomcat is purely java based application and serve java servlets, jsp Pages.
+. In TomCat you can deploy .war or .jar File.
+. The default Port Number is 8080.
+. This can be Installed on Linux & Windows.
+
+
+2. Types of Roles Available in TomCat:
+---------------------------------------
+
+
+

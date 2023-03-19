@@ -1,0 +1,71 @@
+
+2. Pods :
+===========
+
+1. What is Pods:
+==================
+- K8's aim is to deploy our apps in the form of containers on a set of machines that are config as worker nodes in a cluster.
+- K8's doesn't deploy containers on workernodes.
+- Containers are encapsulated in to a kubernetes object known as "PODS".
+- A Pod is a single instance of an app.
+- A pod is an smallest object you can create in K8's.
+- A Pods usually have one to one relationship b/w containers to scale up create new pods & scaledown to delete existing pods.
+
+2. MultiContainer Pods:
+=======================
+- A single pod can have multiple containers.
+- Helper Container to support main apps processing user data or processing logfile or files etc.
+- In above cases you can build multi container in a single pod.
+- So when a new app pod created-helper also creates & when it dies the helpers also dies.
+- The 2 containers can communicate each other by referring local host = share.
+
+Local N/W + Shared Storage = BussyBox + Sidecar
+
+
+
+3. Create Pods:
+================
+1. Create pods using ManifestFiles:
+-------------------------------------
+
+
+# cat pod-nginx.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.14.2
+    ports:
+    - containerPort: 80
+	
+
+# kubectl apply -f  pod-nginx.yaml
+
+Verify:
+--------
+
+# kubectl get pods
+
+# kubectl describe pods/<pod-name>
+
+
+
+2. Create Pods using Commands:
+--------------------------------
+
+# kubectl run nginx 
+# kubectl run nginx  --image=nginx
+
+
+Verify:
+--------
+
+# kubectl get pods
+
+# kubectl describe pods/<pod-name>
+
+

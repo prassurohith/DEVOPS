@@ -1,0 +1,192 @@
+
+GIT  REAL TIME PROJECT :
+===========================
+. Start Developing Java Application for Cab Booking.
+
+==============================================================================================================================================================
+==============================================================================================================================================
+1. Introduction To Git Project:
+=================================
+. Create a Private Repository.
+. Create 3 branches ( Prod, UAT & DEV ).
+. Add team as collaborators to this repository.
+. Enable SSH based Authentication.
+. Protect Prod and UAT Branches.
+. 1 Approval needed to check in the code on UAT and 2 Approvals needed to check-in code on the Prod.
+. Build and Deploy should be successful before check-in the code onto UAT as well as onto Prod.
+
+==============================================================================================================================================
+===========================================================================================================================================
+
+2. REAL TIME SETUP GIT REPOSITORY AND BRANCHES FOR NEW PROJECT :
+====================================================================
+
+2.1. Creating a private GitHub Repository:
+---------------------------------------------
+1. Visit https://github.com/alphagov and click the green ‘New’ button to create a new repository.
+2. Set the repository name to the New Repo:  NAME: Cab Booking Java Application.
+3. Set the ‘Privacy’ setting to ‘Private’.
+4. Finally Create Repo.
+
+
+2.2. Create Branches for Above Repository  PROD, UAT, DEV :
+-------------------------------------------------------------
+1. On GitHub.com, navigate to the main page of the repository.
+2. Above the list of files, click  Branches.
+3. Click New branch.
+4. In the dialog box, enter the branch name and optionally change the branch source.
+5. Click Create branch.
+
+
+. Repeat Above Steps till PROD, UAT, DEV Branches got Created.
+
+
+2.3. Setup Rules for  protecting  Branches to checin and checkout code:
+------------------------------------------------------------------------ 
+1. Click on ‘Settings’ and then ‘Manage access’ to set the permissions on the repository.
+
+2. Add a branch protection rule against the main branch. You can use the settings in another repo as a template.
+
+---->> 1. One Approval Needed for  "UAT BRANCH"  &   Two Approvals for "PROD BRANCH"  To push & pull the code.
+
+3. Make "Prod" as Default Branch & Delete "Master" Branch. 
+
+
+
+2.4. Invite or Add Collaborators :
+------------------------------------
+. Go to Settings---->>Manage  Access------>>Invite Collaborators.
+
+1. Create 2 accounts
+
+- one called Prod Manager ---->>He will provide approvals for PROD BRANCH.
+- one called UAT Manager ----->>He will provide approvals for UAT BRANCH.
+
+============================================================================================================================================
+===========================================================================================================================================
+
+3. Allowing Developers To Access GitHuB Repository:
+=====================================================
+
+. Each Developer should generate ssh keys and share with GITHUB ADMIN Called DEVOPS ADMIN.
+
+
+3.1. Generating a new SSH key and adding it to the ssh-agent:
+---------------------------------------------------------------
+. generate a new SSH key to use for authentication, then add it to the ssh-agent.
+
+1. Open gitbash
+2. execute below.
+#  ssh-keygen -t ed25519 -C "your_email@example.com"
+3. > Enter a file in which to save the key (/c/Users/YOU/.ssh/id_ALGORITHM):[Press enter]
+
+
+
+3.2. Adding your SSH key to the ssh-agent:
+--------------------------------------------
+1. Ensure the ssh-agent is running. You can use the "Auto-launching the ssh-agent" 
+   instructions in "Working with SSH key passphrases", or start it manually:
+
+# start the ssh-agent in the background
+$ eval "$(ssh-agent -s)"
+> Agent pid 59566
+
+2. Add your SSH private key to the ssh-agent. 
+   If you created your key with a different name, 
+   replace id_ed25519 in the command with the name of your private key file.
+
+$ ssh-add ~/.ssh/id_ed25519
+
+3. Add the SSH key to your account on GitHub. For more information, see "Adding a new SSH key to your GitHub account."
+
+
+
+3.2. Adding a new SSH key to your GitHub account:
+--------------------------------------------------
+1. Copy the SSH public key to your clipboard.
+   If your SSH public key file has a different name than the example code, modify the filename to match your current setup.
+   When copying your key, don't add any newlines or whitespace.
+
+$  clip < ~/.ssh/id_ed25519.pub
+  # Copies the contents of the id_ed25519.pub file to your clipboard
+
+2. In the upper-right corner of any page, click your profile photo, then click Settings.
+
+3. In the "Access" section of the sidebar, click  SSH and GPG keys.
+
+4. Click New SSH key or Add SSH key.
+
+5. In the "Title" field, add a descriptive label for the new key. 
+   For example, if you're using a personal laptop, you might call this key "Personal laptop".
+
+6. Paste your key into the "Key" field.
+
+7. Click Add SSH key.
+
+8. If prompted, confirm access to your account on GitHub.
+
+
+NOTE: Make sure all Developer-1, Developer-2, Developer-3, Developer-4  ssh agent keys added to your above created GITHUB Repo.
+-----
+=================================================================================================================================================
+=================================================================================================================================================
+
+4. Now tell to your project manager repository is ready now developers can start develop the code.
+===================================================================================================
+
+4.1. Project Manager allocated coding modules to the developers.
+---------------------------------------------------------------
+
+Developer 1: Home Page
+Developer 2: Services
+Developer 3: Cars, Drivers adn Garage.
+Developer 4: Locations and contact us.
+
+. All Developers Started Developing their respective Modules.
+ 
+. Dont worry about code we have below Ready Code.
+
+ 
+4.2. Pre build Source code repo already available in valaxy github repo:
+------------------------------------------------------------------------
+
+. All developers can clone source code from below github repository.
+
+. Application "TAXI RENTAL APPLICATION".
+
+# git clone  git@github.com:ravdy/taxi-booking.git
+
+
+
+4.3. Compile and Build :
+-------------------------- 
+
+Step-1: . Developer 1 done with his "Module = Home Page "coding. pushed code to github repo & he wants to test his code. 
+        . So Devops Process Came in to Picture  using ci/cd  using tools like git, maven, jenkins, Dev-tomcat-server.
+		. Testers Tested developer-1 code.
+
+Step-2:  . Developer-2 git cloned the code from github repo  of Developer-1 code. 
+         . Mean While Developer 2 done with his "Module = Services " coding he & wants to test his code. 
+         . Now Both Developer-1 & Developer-2 codes " Modules = Home Page & Services "  Pushed to GithubRepo.
+         . So Devops Process Came in to Picture  using ci/cd  using tools like git, maven, jenkins, Dev-tomcat-server.
+         . QA Engineers Tested the code and find out some bugs. 
+         . developer-2 fixed above raised bugs by QA Engineers of "Module = Services "	coding  & he wants to test his code. 
+         . So Devops Process Came in to Picture  using ci/cd  using tools like git, maven, jenkins, Dev-tomcat-server.
+         . This Time  Tested ok.		 
+                                 
+Stage 3: above procedure repeats for Developer-3 & Developer-4
+
+=========================================================================================================================================================
+======================================================================================================================================================================
+
+5. Pull Request & Merge to DEV to UAT or UAT to PROD:
+=========================================================
+ 
+. Configure pull requests for Prod & Uat. 
+ 
+==================================================================================================================================================================
+===================================================================================================================================================
+
+6. Release Code on  Production Servers :
+=========================================
+- Use Jenkins for Prod Releases.

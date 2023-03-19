@@ -1,0 +1,133 @@
+
+8. Kubernetes Services:
+========================
+1. What is Service in K8's.
+----------------------------
+
+- K8's Service enables communication b/w within & outside of the App.
+- K8's Service helps us to connects apps & other apps & users.
+
+Ex: Apps Running  with multiple pods will communicate through "Services".
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Service Type:
+-----------------
+
+1. Cluster IP: 
+---------------
+- A Cluster Ip Service is the default type of service in k8's.
+- It Creates a Service inside k8 cluster, which can be accessed by other apps.
+- In the cluster without allowing external access.
+
+Create:
+-------
+
+# vi service-cluster-ip.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: kube-dns
+    kubernetes.io/cluster-service: "true"
+    kubernetes.io/name: CoreDNS
+  name: kube-dns
+  namespace: kube-system
+spec:
+  clusterIP: 10.96.0.10
+  ports:
+  - name: dns
+    port: 53
+    protocol: UDP
+    targetPort: 53
+  selector:
+    k8s-app: kube-dns
+  type: ClusterIP
+
+
+# kubectl  create -f  service-cluster-ip.yaml
+
+Verify:
+-------
+
+# kubectl  get services
+
+# kubectl describe services example-service
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+2. Node Port:
+-------------- 
+- A Node Port Service opens a specific port on all the Nodes in the Cluster & any traffic sent to the port is fwd to the service.
+- The Service cant be accessed from cluster ip.
+
+
+Craete:
+--------
+
+# vi Service-Node-Port.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: FE
+  name: FE
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: FE
+  type: NodePort
+
+
+# kubectl  create -f  Service-Node-Port.yaml
+
+# Verify:
+---------
+# kubectl  get services
+
+# kubectl describe services example-service
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+3. Load Balancer:
+------------------
+- A LB is a standard way to expose a k8 service externally so it can be accessed over the internet.
+- If you are using GKE this creates a N/W LB with one IP, Which external users can access & fwd to relevent node in your k8 cluster.
+
+Craete:
+-------
+# vi  service-LoadBalancer.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-service
+spec:
+  selector:
+    app: example
+  ports:
+    - port: 8765
+      targetPort: 9376
+  type: LoadBalancer
+  
+
+# kubectl create -f   service-LoadBalancer.yaml
+
+Verify:
+-------
+
+# kubectl  get  services
+
+# kubectl describe services example-service
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+4. Ingress:
+------------
+- Ingress is actually not a type of service.
+- It sits in front of multiple services & performs smart routing b/w them providing Access to your cluster.
+

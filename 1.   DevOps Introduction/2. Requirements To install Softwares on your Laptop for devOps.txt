@@ -1,0 +1,16 @@
+
+2. Resources :
+================
+
+2.1. Account to Open :
+-----------------------
+. GitHub Account.
+. AWS Account.
+. Docker Hub Account.
+
+2.2. Softwares to Install:
+----------------------------
+. Mobaxterm or putty
+. Gitbash
+. Any test Editor ( Sublime ).
+ 

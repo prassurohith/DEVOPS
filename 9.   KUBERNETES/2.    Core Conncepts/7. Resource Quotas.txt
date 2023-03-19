@@ -1,0 +1,51 @@
+
+7. Resource Quotas:
+=====================
+- Limit the Resources to the NameSpace [ project or Tenant ] like CPU,RAM.
+
+
+1. Create NameSpace:
+---------------------
+
+# kubectl create namespace myspace 
+
+Verify:
+-------
+
+# kubectl get namespace
+
+
+
+
+2. Create a Resource Quota:
+----------------------------
+
+$ cat <<EOF > compute-resources.yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-resources
+spec:
+  hard:
+    pods: "4"
+    requests.cpu: "1"
+    requests.memory: 1Gi
+    limits.cpu: "2"
+    limits.memory: 2Gi
+EOF
+
+
+
+# kubectl create -f ./compute-resources.yaml --namespace=myspace
+
+
+Verify:
+-------
+
+# kubectl get quota --namespace=myspace
+# kubectl describe quota compute-resources --namespace=myspace
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
