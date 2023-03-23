@@ -3,7 +3,7 @@
 =================
 
 1.1. What is Messaging System.
--------------------------------
+===============================
 . A Messaging System is responsible for transferring data from one application to another, so the applications can focus on data, 
   but not worry about how to share it. 
 . Distributed messaging is based on the concept of reliable message queuing. 
