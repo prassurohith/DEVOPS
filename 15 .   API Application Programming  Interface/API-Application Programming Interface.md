@@ -10,3 +10,4 @@
 + API is defined as a code that helps two different software’s to communicate and exchange data with each other.
 + It offers products or services to communicate with other products and services without having to know how they’re implemented.
 
+![image](https://user-images.githubusercontent.com/105772882/227204108-aee8c698-4986-4a70-9ca7-24c057ecbbfe.png)
