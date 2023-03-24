@@ -12,6 +12,8 @@
 
 ![image](https://user-images.githubusercontent.com/105772882/227204108-aee8c698-4986-4a70-9ca7-24c057ecbbfe.png)
 
+_____________________________________________________________________________________________________________________________________________________________
+
 
 ## 2. How does api work?
 
@@ -35,6 +37,7 @@
 + They are collaborating with other applications. This integration is called “seamless,” as you never have a clue when a software role 
   is passed from one application to another.
 
+_____________________________________________________________________________________________________________________________________________________________
 
 ## 3. Why would we need an API?
 
@@ -47,6 +50,7 @@
 + It allows the user or a company to customize the content and services which they use the most.
 + Software needs to change over time, and APIs help to anticipate changes.
 
+_____________________________________________________________________________________________________________________________________________________________
 
 ## 4. Features of API:
 
@@ -58,7 +62,7 @@
 + Managed and measured.
 + Offers great developer support.
 
-
+_____________________________________________________________________________________________________________________________________________________________
 
 ## 5. Types of API:
 
@@ -80,6 +84,7 @@
 
 + This type of API combines different data and service APIs.
 
+_____________________________________________________________________________________________________________________________________________________________
 
 ## 6. Communication level of APIs:
 
@@ -119,6 +124,7 @@
   for developers to interact with Twitter Search.
 + Amazon’s API gives developers access to Amazon’s product selection.
 
+_____________________________________________________________________________________________________________________________________________________________
 
 ## 8. API Testing tools:
 
@@ -148,3 +154,4 @@
 
 + vREST API tool provides an online solution for automated testing, mocking, automatic recording, and specification of REST/HTTP APIs/RESTful APIs.
 
+_____________________________________________________________________________________________________________________________________________________________
